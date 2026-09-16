@@ -12,6 +12,22 @@ import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Bedrock_Blend;
+import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Bedrock_Scale;
+import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Bedrock_Strength;
+import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.End_Stone_Blend;
+import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.End_Stone_Scale;
+import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.End_Stone_Strength;
+import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Lava_Blend;
+import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Lava_Scale;
+import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Lava_Strength;
+import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Red_Sand_Blend;
+import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Red_Sand_Scale;
+import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Red_Sand_Strength;
+import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Sand_Blend;
+import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Sand_Scale;
+import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Sand_Strength;
+
 import static java.lang.Math.clamp;
 
 public class Rougher_Environment_Common {
@@ -141,26 +157,26 @@ public class Rougher_Environment_Common {
     
     public static final ColorResolver SAND_RESOLVER = Util.make(() -> {
         return (biome, x, z) -> blendedColor(0xFFFFFF, 0xA48282, (int) x, (int) z,
-                5, BLOCK_NOISE, 128f, 0.275f);
+                Sand_Blend, BLOCK_NOISE, Sand_Scale, Sand_Strength);
     });
     
     public static final ColorResolver RED_SAND_RESOLVER = Util.make(() -> {
         return (biome, x, z) -> blendedColor(0xFFFFFF, 0xB87E2C, (int) x, (int) z,
-                9, BLOCK_NOISE, 196f, 0.675f);
+                Red_Sand_Blend, BLOCK_NOISE, Red_Sand_Scale, Red_Sand_Strength);
     });
     
     public static final ColorResolver END_STONE_RESOLVER = Util.make(() -> {
         return (biome, x, z) -> blendedColor(0xFFFFFF, 0xC752A3, (int) x, (int) z,
-                9, BLOCK_NOISE, 156f, 0.275f);
+                End_Stone_Blend, BLOCK_NOISE, End_Stone_Scale, End_Stone_Strength);
     });
     
     public static final ColorResolver BEDROCK_RESOLVER = Util.make(() -> {
         return (biome, x, z) -> blendedColor(0xFFFFFF, 0x464646, (int) x, (int) z,
-                3, BLOCK_NOISE, 196f, 0.425f);
+                Bedrock_Blend, BLOCK_NOISE, Bedrock_Scale, Bedrock_Strength);
     });
     
     public static final ColorResolver LAVA_RESOLVER = Util.make(() -> {
         return (biome, x, z) -> blendedColor(0xFFFFFF, 0x818181, (int) x, (int) z,
-                3, LIQUID_NOISE, 156f, 0.875f);
+                Lava_Blend, LIQUID_NOISE, Lava_Scale, Lava_Strength);
     });
 }

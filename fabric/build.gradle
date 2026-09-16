@@ -1,8 +1,3 @@
-import com.blamejared.gradle.mod.utils.GMUtils
-import com.blamejared.gradle.mod.utils.values.GitChangelogValue
-import net.darkhax.curseforgegradle.Constants as CFGConstants
-import net.darkhax.curseforgegradle.TaskPublishCurseForge
-
 plugins {
     id 'com.blamejared.loader-plugin'
     id 'net.fabricmc.fabric-loom'
@@ -28,46 +23,31 @@ loom {
         }
     }
 }
-/*
-tasks.register('publishCurseForge', TaskPublishCurseForge) {
-    dependsOn(tasks.jar)
-    apiToken = GMUtils.locateProperty(project, 'curseforgeApiToken')
 
-    def mainFile = upload(curse_project_id, tasks.jar.archiveFile)
-    mainFile.changelogType = 'markdown'
-    mainFile.changelog = providers.of(GitChangelogValue) {
-        parameters.repository.set(git_repo)
-    }.get()
-    mainFile.releaseType = CFGConstants.RELEASE_TYPE_RELEASE
-    mainFile.addJavaVersion("Java ${java_version}")
-    mainFile.addGameVersion(minecraft)
-    mainFile.addRequirement('fabric-api')
-    mainFile.addEnvironment('Client')
-    
-    doLast {
-        project.ext.set('curse_file_url', "${curse_homepage}/files/${mainFile.curseFileId}")
+repositories {
+    /*
+    maven {
+        name = 'Xander Maven'
+        url = 'https://maven.isxander.dev/releases'
     }
+    maven {
+        name = 'ModMenu'
+        url = 'https://maven.terraformersmc.com/releases/'
+    }
+    */
 }
 
-modrinth {
-    token.set(GMUtils.locateProperty(project, 'modrinth_token'))
-    projectId.set(modrinth_project_id)
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft}"
+    implementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric}"
 
-    changelog.set(providers.of(GitChangelogValue) {
-        parameters.repository.set(git_repo)
-    }.get())
-
-    versionName.set("Fabric-${minecraft}-$version")
-    versionType.set('release')
-    gameVersions.set([minecraft])
-    uploadFile.set(tasks.jar)
-    dependencies {
-        required.project('fabric-api')
-    }
+    /*
+    implementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+    implementation "dev.isxander:yet-another-config-lib:${project.yacl_version}"
+     */
 }
-tasks.modrinth.dependsOn(tasks.jar)
-*/
-// Implement mcgradleconventions loader attribute
+
 def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', String)
 ['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements', 'includeInternal', 'modCompileClasspath'].each { variant ->
     configurations.named("$variant") {
