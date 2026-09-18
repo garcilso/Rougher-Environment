@@ -1,6 +1,6 @@
-package com.real_sebastiago.rougher_environment;
+package com.garcilso.rougher_environment;
 
-import com.real_sebastiago.rougher_environment.mixin.BiomeColorsAccessor;
+import com.garcilso.rougher_environment.mixin.BiomeColorsAccessor;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Util;
@@ -16,21 +16,21 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Bedrock_Blend;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Bedrock_Scale;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Bedrock_Strength;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.End_Stone_Blend;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.End_Stone_Scale;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.End_Stone_Strength;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Lava_Blend;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Lava_Scale;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Lava_Strength;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Red_Sand_Blend;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Red_Sand_Scale;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Red_Sand_Strength;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Sand_Blend;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Sand_Scale;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Sand_Strength;
+import static com.garcilso.rougher_environment.config.Rougher_Environment_Config.Bedrock_Blend;
+import static com.garcilso.rougher_environment.config.Rougher_Environment_Config.Bedrock_Scale;
+import static com.garcilso.rougher_environment.config.Rougher_Environment_Config.Bedrock_Strength;
+import static com.garcilso.rougher_environment.config.Rougher_Environment_Config.End_Stone_Blend;
+import static com.garcilso.rougher_environment.config.Rougher_Environment_Config.End_Stone_Scale;
+import static com.garcilso.rougher_environment.config.Rougher_Environment_Config.End_Stone_Strength;
+import static com.garcilso.rougher_environment.config.Rougher_Environment_Config.Lava_Blend;
+import static com.garcilso.rougher_environment.config.Rougher_Environment_Config.Lava_Scale;
+import static com.garcilso.rougher_environment.config.Rougher_Environment_Config.Lava_Strength;
+import static com.garcilso.rougher_environment.config.Rougher_Environment_Config.Red_Sand_Blend;
+import static com.garcilso.rougher_environment.config.Rougher_Environment_Config.Red_Sand_Scale;
+import static com.garcilso.rougher_environment.config.Rougher_Environment_Config.Red_Sand_Strength;
+import static com.garcilso.rougher_environment.config.Rougher_Environment_Config.Sand_Blend;
+import static com.garcilso.rougher_environment.config.Rougher_Environment_Config.Sand_Scale;
+import static com.garcilso.rougher_environment.config.Rougher_Environment_Config.Sand_Strength;
 
 import static java.lang.Math.clamp;
 

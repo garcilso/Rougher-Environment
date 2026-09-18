@@ -1,4 +1,4 @@
-package com.real_sebastiago.rougher_environment;
+package com.garcilso.rougher_environment;
 
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;

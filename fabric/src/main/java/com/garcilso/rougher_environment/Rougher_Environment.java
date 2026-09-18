@@ -1,4 +1,4 @@
-package com.real_sebastiago.rougher_environment;
+package com.garcilso.rougher_environment;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;

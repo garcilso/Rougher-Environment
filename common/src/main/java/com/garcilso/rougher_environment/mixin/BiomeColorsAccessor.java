@@ -1,4 +1,4 @@
-package com.real_sebastiago.rougher_environment.mixin;
+package com.garcilso.rougher_environment.mixin;
 
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.world.level.ColorResolver;

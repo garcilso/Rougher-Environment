@@ -1,4 +1,4 @@
-package com.real_sebastiago.rougher_environment.config;
+package com.garcilso.rougher_environment.config;
 
 public class Rougher_Environment_Config {
     //Sand
