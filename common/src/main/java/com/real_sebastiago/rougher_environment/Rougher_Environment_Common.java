@@ -6,10 +6,14 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.Util;
 import net.minecraft.world.level.ColorResolver;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
-import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
+import net.minecraft.world.level.levelgen.synth.Noise;
+import net.minecraft.world.level.levelgen.synth.NoiseStack;
+import net.minecraft.world.level.levelgen.synth.SimplexNoise;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 
 import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Bedrock_Blend;
@@ -31,16 +35,31 @@ import static com.real_sebastiago.rougher_environment.config.Rougher_Environment
 import static java.lang.Math.clamp;
 
 public class Rougher_Environment_Common {
-    
     public static final int NOISE_OCTAVES = 2;
-    public static final int NOISE_OCTAVES_MORE = 3;
+    public static final int NOISE_OCTAVES_STRONGER = 3;
     public static final List<Integer> OCTAVES = IntStream.rangeClosed(0, NOISE_OCTAVES).boxed().toList();
-    public static final List<Integer> OCTAVES_MORE = IntStream.rangeClosed(0, NOISE_OCTAVES_MORE).boxed().toList();
-    public static final PerlinSimplexNoise FOLIAGE_NOISE = new PerlinSimplexNoise(new XoroshiroRandomSource("FOLIAGE_NOISE".hashCode()), OCTAVES);
-    public static final PerlinSimplexNoise DRY_FOLIAGE_NOISE = new PerlinSimplexNoise(new XoroshiroRandomSource("DRY_FOLIAGE_NOISE".hashCode()), OCTAVES);
+    public static final List<Integer> OCTAVES_STRONGER = IntStream.rangeClosed(0, NOISE_OCTAVES_STRONGER).boxed().toList();
+    private static final Function<String, Noise> NOISE_GENERATOR = s -> {
+        WorldgenRandom random = new WorldgenRandom(new XoroshiroRandomSource(s.hashCode()));
+        NoiseStack.Builder builder = NoiseStack.builder();
+        for(Integer octave : OCTAVES) {
+            builder.add(new SimplexNoise(random, true), octave, (1 + octave) / 7f);
+        }
+        return builder.build();
+    };
+    private static final Function<String, Noise> NOISE_GENERATOR_STRPNGER = s -> {
+        WorldgenRandom random = new WorldgenRandom(new XoroshiroRandomSource(s.hashCode()));
+        NoiseStack.Builder builder = NoiseStack.builder();
+        for(Integer octave : OCTAVES_STRONGER) {
+            builder.add(new SimplexNoise(random, true), octave, (1 + octave) / 7f);
+        }
+        return builder.build();
+    };
     
-    public static final PerlinSimplexNoise BLOCK_NOISE = new PerlinSimplexNoise(new XoroshiroRandomSource("BLOCK_NOISE".hashCode()), OCTAVES);
-    public static final PerlinSimplexNoise LIQUID_NOISE = new PerlinSimplexNoise(new XoroshiroRandomSource("LIQUID_NOISE".hashCode()), OCTAVES_MORE);
+    public static final Noise FOLIAGE_NOISE = NOISE_GENERATOR.apply("FOLIAGE_NOISE");
+    public static final Noise DRY_FOLIAGE_NOISE = NOISE_GENERATOR.apply("DRY_FOLIAGE_NOISE");
+    public static final Noise BLOCK_NOISE = NOISE_GENERATOR.apply("BLOCK_NOISE");
+    public static final Noise LIQUID_NOISE = NOISE_GENERATOR_STRPNGER.apply("LIQUID_NOISE");
     
     public static final ColorResolver FOLIAGE_RESOLVER = Util.make(() -> {
         final var baseResolver = BiomeColors.FOLIAGE_COLOR_RESOLVER;
@@ -59,10 +78,10 @@ public class Rougher_Environment_Common {
         
     }
     
-    private static int modifyColour(PerlinSimplexNoise generator, ColorResolver resolver, Biome biome, double x, double z, double scale, double darkness) {
+    private static int modifyColour(Noise generator, ColorResolver resolver, Biome biome, double x, double z, double scale, double darkness) {
         
         final int base = resolver.getColor(biome, x, z);
-        double value = generator.getValue(x / scale, z / scale, false);
+        double value = generator.get(x / scale, z / scale);
         value = curve(0, 1, remap(value, -((1 << NOISE_OCTAVES) - 1), (1 << NOISE_OCTAVES) - 1, 0, 1)) * darkness;
         return blend(base, 0x8C9C00, (float) (value));
     }
@@ -125,7 +144,7 @@ public class Rougher_Environment_Common {
     
     //Rougher Environment "Original" code begins here
     
-    private static int blendedColor(int color, int colorBlend, int x, int z, int distance, PerlinSimplexNoise Noise, float scale, float darkness) {
+    private static int blendedColor(int color, int colorBlend, int x, int z, int distance, Noise generator, float scale, float darkness) {
         int length = distance*distance;
         
         float A = getAlpha(color); float R = getRed(color); float G = getGreen(color); float B = getBlue(color);
@@ -134,7 +153,7 @@ public class Rougher_Environment_Common {
         
         for (int Blockx = 0; Blockx < distance; Blockx++) {
             for (int Blockz = 0; Blockz < distance; Blockz++) {
-                int BlockColor = modifyColourNoBiome(Noise, color, colorBlend, CornerX+Blockx, CornerZ+Blockz, scale, darkness);
+                int BlockColor = modifyColourNoBiome(generator, color, colorBlend, CornerX+Blockx, CornerZ+Blockz, scale, darkness);
                 
                 A += getAlpha(BlockColor); R += getRed(BlockColor); G += getGreen(BlockColor); B += getBlue(BlockColor);
             }
@@ -148,9 +167,9 @@ public class Rougher_Environment_Common {
         return finalColor;
     }
     
-    private static int modifyColourNoBiome(PerlinSimplexNoise generator, int color, int colorBlend, double x, double z, double scale, double darkness) {
+    private static int modifyColourNoBiome(Noise generator, int color, int colorBlend, double x, double z, double scale, double darkness) {
         
-        double value = generator.getValue(x / scale, z / scale, false);
+        double value = generator.get(x / scale, z / scale);
         value = curve(0, 1, remap(value, -((1 << NOISE_OCTAVES) - 1), (1 << NOISE_OCTAVES) - 1, 0, 1)) * darkness;
         return blend(color,  colorBlend, (float) (value));
     }

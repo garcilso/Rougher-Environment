@@ -18,7 +18,6 @@ import net.minecraft.world.level.material.Fluids;
 
 import java.util.List;
 
-
 @Environment(EnvType.CLIENT)
 public class Rougher_Environment implements ClientModInitializer {
     @Override
