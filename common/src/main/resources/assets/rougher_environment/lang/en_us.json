@@ -1,0 +1,87 @@
+{
+  "text.autoconfig.rougher_environment.title" : "Rougher Environment Settings",
+
+  "text.autoconfig.rougher_environment.option.foliageSettings" : "Foliage Noise",
+  "text.autoconfig.rougher_environment.option.foliageSettings.Foliage_Scale" : "Foliage Noise Scale",
+  "text.autoconfig.rougher_environment.option.foliageSettings.Foliage_Scale.@Tooltip" : "Handles the size of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.foliageSettings.Foliage_Strength": "Foliage Noise Strength",
+  "text.autoconfig.rougher_environment.option.foliageSettings.Foliage_Strength.@Tooltip": "Handles the strength of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.foliageSettings.Dry_Foliage_Scale": "Dry Foliage Noise Scale",
+  "text.autoconfig.rougher_environment.option.foliageSettings.Dry_Foliage_Scale.@Tooltip" : "Handles the size of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.foliageSettings.Dry_Foliage_Strength": "Dry Foliage Noise Strength",
+  "text.autoconfig.rougher_environment.option.foliageSettings.Dry_Foliage_Strength.@Tooltip": "Handles the strength of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.sandSettings" : "Sand Noise",
+  "text.autoconfig.rougher_environment.option.sandSettings.Sand_Scale" : "Sand Noise Scale",
+  "text.autoconfig.rougher_environment.option.sandSettings.Sand_Scale.@Tooltip" : "Handles the size of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.sandSettings.Sand_Strength": "Sand Noise Strength",
+  "text.autoconfig.rougher_environment.option.sandSettings.Sand_Strength.@Tooltip": "Handles the strength of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.sandSettings.Sand_Blend": "Sand Noise Blend",
+  "text.autoconfig.rougher_environment.option.sandSettings.Sand_Blend.@Tooltip": "Handles the fake blend of the Noise (CAN BE LAGGY AT HIGH VALUES)",
+
+  "text.autoconfig.rougher_environment.option.redsandSettings" : "Red Sand Noise",
+  "text.autoconfig.rougher_environment.option.redsandSettings.Red_Sand_Scale" : "Red Sand Noise Scale",
+  "text.autoconfig.rougher_environment.option.redsandSettings.Red_Sand_Scale.@Tooltip" : "Handles the size of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.redsandSettings.Red_Sand_Strength": "Red Sand Noise Strength",
+  "text.autoconfig.rougher_environment.option.redsandSettings.Red_Sand_Strength.@Tooltip": "Handles the strength of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.redsandSettings.Red_Sand_Blend": "Red Sand Noise Blend",
+  "text.autoconfig.rougher_environment.option.redsandSettings.Red_Sand_Blend.@Tooltip": "Handles the fake blend of the Noise (CAN BE LAGGY AT HIGH VALUES)",
+
+  "text.autoconfig.rougher_environment.option.endstoneSettings" : "Endstone Noise",
+  "text.autoconfig.rougher_environment.option.endstoneSettings.End_Stone_Scale" : "Endstone Noise Scale",
+  "text.autoconfig.rougher_environment.option.endstoneSettings.End_Stone_Scale.@Tooltip" : "Handles the size of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.endstoneSettings.End_Stone_Strength": "Endstone Noise Strength",
+  "text.autoconfig.rougher_environment.option.endstoneSettings.End_Stone_Strength.@Tooltip": "Handles the strength of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.endstoneSettings.End_Stone_Blend": "Endstone Noise Blend",
+  "text.autoconfig.rougher_environment.option.endstoneSettings.End_Stone_Blend.@Tooltip": "Handles the fake blend of the Noise (CAN BE LAGGY AT HIGH VALUES)",
+
+  "text.autoconfig.rougher_environment.option.bedrockSettings" : "Bedrock Noise",
+  "text.autoconfig.rougher_environment.option.bedrockSettings.Bedrock_Scale" : "Bedrock Noise Scale",
+  "text.autoconfig.rougher_environment.option.bedrockSettings.Bedrock_Scale.@Tooltip" : "Handles the size of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.bedrockSettings.Bedrock_Strength": "Bedrock Noise Strength",
+  "text.autoconfig.rougher_environment.option.bedrockSettings.Bedrock_Strength.@Tooltip": "Handles the strength of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.bedrockSettings.Bedrock_Blend": "Bedrock Noise Blend",
+  "text.autoconfig.rougher_environment.option.bedrockSettings.Bedrock_Blend.@Tooltip": "Handles the fake blend of the Noise (CAN BE LAGGY AT HIGH VALUES)",
+
+  "text.autoconfig.rougher_environment.option.lavaSettings" : "Lava Noise",
+  "text.autoconfig.rougher_environment.option.lavaSettings.Lava_Scale" : "Lava Noise Scale",
+  "text.autoconfig.rougher_environment.option.lavaSettings.Lava_Scale.@Tooltip" : "Handles the size of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.lavaSettings.Lava_Strength": "Lava Noise Strength",
+  "text.autoconfig.rougher_environment.option.lavaSettings.Lava_Strength.@Tooltip": "Handles the strength of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.lavaSettings.Lava_Blend": "Lava Noise Blend",
+  "text.autoconfig.rougher_environment.option.lavaSettings.Lava_Blend.@Tooltip": "Handles the fake blend of the Noise (CAN BE LAGGY AT HIGH VALUES)",
+
+  "text.autoconfig.rougher_environment.option.netherrackSettings" : "Netherrack Noise",
+  "text.autoconfig.rougher_environment.option.netherrackSettings.Netherrack_Scale" : "Netherrack Noise Scale",
+  "text.autoconfig.rougher_environment.option.netherrackSettings.Netherrack_Scale.@Tooltip" : "Handles the size of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.netherrackSettings.Netherrack_Strength": "Netherrack Noise Strength",
+  "text.autoconfig.rougher_environment.option.netherrackSettings.Netherrack_Strength.@Tooltip": "Handles the strength of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.netherrackSettings.Netherrack_Blend": "Netherrack Noise Blend",
+  "text.autoconfig.rougher_environment.option.netherrackSettings.Netherrack_Blend.@Tooltip": "Handles the fake blend of the Noise (CAN BE LAGGY AT HIGH VALUES)",
+
+  "text.autoconfig.rougher_environment.option.soulsandsSettings" : "Soul Sand(s) Noise",
+  "text.autoconfig.rougher_environment.option.soulsandsSettings.Soul_Sands_Scale" : "Soul Sand(s) Noise Scale",
+  "text.autoconfig.rougher_environment.option.soulsandsSettings.Soul_Sands_Scale.@Tooltip" : "Handles the size of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.soulsandsSettings.Soul_Sands_Strength": "Soul Sand(s) Noise Strength",
+  "text.autoconfig.rougher_environment.option.soulsandsSettings.Soul_Sands_Strength.@Tooltip": "Handles the strength of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.soulsandsSettings.Soul_Sands_Blend": "Soul Sand(s) Noise Blend",
+  "text.autoconfig.rougher_environment.option.soulsandsSettings.Soul_Sands_Blend.@Tooltip": "Handles the fake blend of the Noise (CAN BE LAGGY AT HIGH VALUES)"
+}
+

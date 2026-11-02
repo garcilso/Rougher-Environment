@@ -16,6 +16,9 @@
   "entrypoints": {
     "client": [
       "com.garcilso.rougher_environment.Rougher_Environment"
+    ],
+    "modmenu": [
+      "com.garcilso.rougher_environment.config.Rougher_Environment_ModMenu"
     ]
   },
   "depends": {
