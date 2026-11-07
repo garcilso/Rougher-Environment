@@ -22,7 +22,7 @@ public class Rougher_Environment_Config implements ConfigData {
         public float Foliage_Strength = 0.475f;
         
         @ConfigEntry.Gui.Tooltip
-        public float Dry_Foliage_Scale = 4120f;
+        public float Dry_Foliage_Scale = 412f;
         @ConfigEntry.Gui.Tooltip
         public float Dry_Foliage_Strength = 0.475f;
         
