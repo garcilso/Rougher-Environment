@@ -1,6 +1,7 @@
-package com.real_sebastiago.rougher_environment;
+package com.garcilso.rougher_environment;
 
-import com.real_sebastiago.rougher_environment.mixin.BiomeColorsAccessor;
+import com.garcilso.rougher_environment.config.Rougher_Environment_Config;
+import com.garcilso.rougher_environment.mixin.BiomeColorsAccessor;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Util;
@@ -12,26 +13,18 @@ import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Bedrock_Blend;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Bedrock_Scale;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Bedrock_Strength;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.End_Stone_Blend;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.End_Stone_Scale;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.End_Stone_Strength;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Lava_Blend;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Lava_Scale;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Lava_Strength;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Red_Sand_Blend;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Red_Sand_Scale;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Red_Sand_Strength;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Sand_Blend;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Sand_Scale;
-import static com.real_sebastiago.rougher_environment.config.Rougher_Environment_Config.Sand_Strength;
-
 import static java.lang.Math.clamp;
 
 public class Rougher_Environment_Common {
-    
+    private static final Rougher_Environment_Config.GeneralSettings generalSettings = Rougher_Environment.getConfig().generalSettings;
+    private static final Rougher_Environment_Config.FoliageSettings foliageSettings = Rougher_Environment.getConfig().foliageSettings;
+    private static final Rougher_Environment_Config.SandSettings sandSettings = Rougher_Environment.getConfig().sandSettings;
+    private static final Rougher_Environment_Config.RedSandSettings redsandSettings = Rougher_Environment.getConfig().redsandSettings;
+    private static final Rougher_Environment_Config.EndStoneSettings endstoneSettings = Rougher_Environment.getConfig().endstoneSettings;
+    private static final Rougher_Environment_Config.BedrockSettings bedrockSettings = Rougher_Environment.getConfig().bedrockSettings;
+    private static final Rougher_Environment_Config.LavaSettings lavaSettings = Rougher_Environment.getConfig().lavaSettings;
+    private static final Rougher_Environment_Config.NetherrackSettings netherrackSettings = Rougher_Environment.getConfig().netherrackSettings;
+    private static final Rougher_Environment_Config.SoulSandsSettings soulsandsSettings = Rougher_Environment.getConfig().soulsandsSettings;
     public static final int NOISE_OCTAVES = 2;
     public static final int NOISE_OCTAVES_MORE = 3;
     public static final List<Integer> OCTAVES = IntStream.rangeClosed(0, NOISE_OCTAVES).boxed().toList();
@@ -44,12 +37,12 @@ public class Rougher_Environment_Common {
     
     public static final ColorResolver FOLIAGE_RESOLVER = Util.make(() -> {
         final var baseResolver = BiomeColors.FOLIAGE_COLOR_RESOLVER;
-        return (biome, x, z) -> modifyColour(FOLIAGE_NOISE, baseResolver, biome, x, z, 512f, 0.8f);
+        return (biome, x, z) -> modifyColour(FOLIAGE_NOISE, baseResolver, biome, x, z, foliageSettings.Foliage_Scale, foliageSettings.Foliage_Strength);
     });
     
     public static final ColorResolver DRY_FOLIAGE_RESOLVER = Util.make(() -> {
         final var baseResolver = BiomeColors.DRY_FOLIAGE_COLOR_RESOLVER;
-        return (biome, x, z) -> modifyColour(DRY_FOLIAGE_NOISE, baseResolver, biome, x, z, 512f, 0.35f);
+        return (biome, x, z) -> modifyColour(DRY_FOLIAGE_NOISE, baseResolver, biome, x, z, foliageSettings.Dry_Foliage_Scale, foliageSettings.Dry_Foliage_Strength);
     });
     
     public static void init() {
@@ -64,7 +57,7 @@ public class Rougher_Environment_Common {
         final int base = resolver.getColor(biome, x, z);
         double value = generator.getValue(x / scale, z / scale, false);
         value = curve(0, 1, remap(value, -((1 << NOISE_OCTAVES) - 1), (1 << NOISE_OCTAVES) - 1, 0, 1)) * darkness;
-        return blend(base, 0x8C9C00, (float) (value));
+        return blend(base, foliageSettings.Foliage_Color, (float) (value));
     }
     
     public static double remap(final double value, final double currentLow, final double currentHigh, final double newLow, final double newHigh) {
@@ -156,27 +149,37 @@ public class Rougher_Environment_Common {
     }
     
     public static final ColorResolver SAND_RESOLVER = Util.make(() -> {
-        return (biome, x, z) -> blendedColor(0xFFFFFF, 0xA48282, (int) x, (int) z,
-                Sand_Blend, BLOCK_NOISE, Sand_Scale, Sand_Strength);
+        return (biome, x, z) -> blendedColor(generalSettings.Default_Color, sandSettings.Sand_Color, (int) x, (int) z,
+                sandSettings.Sand_Blend, BLOCK_NOISE, sandSettings.Sand_Scale, sandSettings.Sand_Strength);
     });
     
     public static final ColorResolver RED_SAND_RESOLVER = Util.make(() -> {
-        return (biome, x, z) -> blendedColor(0xFFFFFF, 0xB87E2C, (int) x, (int) z,
-                Red_Sand_Blend, BLOCK_NOISE, Red_Sand_Scale, Red_Sand_Strength);
+        return (biome, x, z) -> blendedColor(generalSettings.Default_Color, redsandSettings.Red_Sand_Color, (int) x, (int) z,
+                redsandSettings.Red_Sand_Blend, BLOCK_NOISE, redsandSettings.Red_Sand_Scale, redsandSettings.Red_Sand_Strength);
     });
     
     public static final ColorResolver END_STONE_RESOLVER = Util.make(() -> {
-        return (biome, x, z) -> blendedColor(0xFFFFFF, 0xC752A3, (int) x, (int) z,
-                End_Stone_Blend, BLOCK_NOISE, End_Stone_Scale, End_Stone_Strength);
+        return (biome, x, z) -> blendedColor(generalSettings.Default_Color, endstoneSettings.End_Stone_Color, (int) x, (int) z,
+                endstoneSettings.End_Stone_Blend, BLOCK_NOISE, endstoneSettings.End_Stone_Scale, endstoneSettings.End_Stone_Strength);
     });
     
     public static final ColorResolver BEDROCK_RESOLVER = Util.make(() -> {
-        return (biome, x, z) -> blendedColor(0xFFFFFF, 0x464646, (int) x, (int) z,
-                Bedrock_Blend, BLOCK_NOISE, Bedrock_Scale, Bedrock_Strength);
+        return (biome, x, z) -> blendedColor(generalSettings.Default_Color, bedrockSettings.Bedrock_Color, (int) x, (int) z,
+                bedrockSettings.Bedrock_Blend, BLOCK_NOISE, bedrockSettings.Bedrock_Scale, bedrockSettings.Bedrock_Strength);
     });
     
     public static final ColorResolver LAVA_RESOLVER = Util.make(() -> {
-        return (biome, x, z) -> blendedColor(0xFFFFFF, 0x818181, (int) x, (int) z,
-                Lava_Blend, LIQUID_NOISE, Lava_Scale, Lava_Strength);
+        return (biome, x, z) -> blendedColor(generalSettings.Default_Color, lavaSettings.Lava_Color, (int) x, (int) z,
+                lavaSettings.Lava_Blend, LIQUID_NOISE, lavaSettings.Lava_Scale, lavaSettings.Lava_Strength);
+    });
+    
+    public static final ColorResolver NETHERRACK_RESOLVER = Util.make(() -> {
+        return (biome, x, z) -> blendedColor(generalSettings.Default_Color, netherrackSettings.Netherrack_Color, (int) x, (int) z,
+                netherrackSettings.Netherrack_Blend, BLOCK_NOISE, netherrackSettings.Netherrack_Scale, netherrackSettings.Netherrack_Strength);
+    });
+    
+    public static final ColorResolver SOUL_SANDS_RESOLVER = Util.make(() -> {
+        return (biome, x, z) -> blendedColor(generalSettings.Default_Color, soulsandsSettings.Soul_Sands_Color, (int) x, (int) z,
+                soulsandsSettings.Soul_Sands_Blend, BLOCK_NOISE, soulsandsSettings.Soul_Sands_Scale, soulsandsSettings.Soul_Sands_Strength);
     });
 }

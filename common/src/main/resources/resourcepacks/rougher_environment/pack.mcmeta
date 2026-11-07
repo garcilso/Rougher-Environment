@@ -1,9 +1,9 @@
 {
   "pack": {
     "description": "Rougher Environment resources, necessary to make the noise tint work.",
-    "supported_formats": [48, 64],
+    "supported_formats": [48, 97],
     "min_format": 48,
-    "max_format": 84,
-    "pack_format": 84
+    "max_format": 97,
+    "pack_format": 97
   }
 }

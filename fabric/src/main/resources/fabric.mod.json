@@ -15,7 +15,10 @@
   "icon": "assets/rougher_environment/icon.png",
   "entrypoints": {
     "client": [
-      "com.real_sebastiago.rougher_environment.Rougher_Environment"
+      "com.garcilso.rougher_environment.Rougher_Environment"
+    ],
+    "modmenu": [
+      "com.garcilso.rougher_environment.config.Rougher_Environment_ModMenu"
     ]
   },
   "depends": {

@@ -1,6 +1,6 @@
-package com.real_sebastiago.rougher_environment.mixin;
+package com.garcilso.rougher_environment.mixin;
 
-import com.real_sebastiago.rougher_environment.Rougher_Environment_Common;
+import com.garcilso.rougher_environment.Rougher_Environment_Common;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.main.GameConfig;
 import org.spongepowered.asm.mixin.Mixin;
