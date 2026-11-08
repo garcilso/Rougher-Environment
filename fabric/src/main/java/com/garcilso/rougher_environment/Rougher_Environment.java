@@ -138,6 +138,19 @@ public class Rougher_Environment implements ClientModInitializer {
             }
         }), Blocks.SOUL_SAND, Blocks.SOUL_SOIL);
         
+        BlockColorRegistry.register(List.of(new BlockTintSource() {
+            @Override
+            public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+                return ARGB.opaque(Rougher_Environment_Common.ICES_RESOLVER.getColor(null, pos.getX(), pos.getZ())
+                );
+            }
+            
+            @Override
+            public int color(BlockState state) {
+                return ARGB.opaque(generalSettings.Default_Color);
+            }
+        }), Blocks.ICE, Blocks.PACKED_ICE, Blocks.BLUE_ICE);
+        
         FluidRenderingRegistry.register(
                 Fluids.LAVA,
                 Fluids.FLOWING_LAVA,

@@ -2,7 +2,6 @@ package com.garcilso.rougher_environment;
 
 import com.garcilso.rougher_environment.config.Rougher_Environment_Config;
 import com.garcilso.rougher_environment.mixin.BiomeColorsAccessor;
-import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Util;
@@ -19,6 +18,7 @@ import java.util.function.Function;
 import java.util.stream.IntStream;
 
 import static java.lang.Math.clamp;
+import static java.lang.Math.pow;
 
 public class Rougher_Environment_Common {
     private static final Rougher_Environment_Config.GeneralSettings generalSettings = Rougher_Environment.getConfig().generalSettings;
@@ -30,6 +30,7 @@ public class Rougher_Environment_Common {
     private static final Rougher_Environment_Config.LavaSettings lavaSettings = Rougher_Environment.getConfig().lavaSettings;
     private static final Rougher_Environment_Config.NetherrackSettings netherrackSettings = Rougher_Environment.getConfig().netherrackSettings;
     private static final Rougher_Environment_Config.SoulSandsSettings soulsandsSettings = Rougher_Environment.getConfig().soulsandsSettings;
+    private static final Rougher_Environment_Config.IcesSettings icesSettings = Rougher_Environment.getConfig().icesSettings;
     
     public static final int NOISE_OCTAVES = 2;
     public static final int NOISE_OCTAVES_STRONGER = 3;
@@ -139,31 +140,61 @@ public class Rougher_Environment_Common {
     
     //Rougher Environment "Original" code begins here
     
-    private static int blendedColor(int color, int colorBlend, int x, int z, int distance, Noise generator, float scale, float darkness) {
-        int length = distance*distance;
-        
-        float A = getAlpha(color); float R = getRed(color); float G = getGreen(color); float B = getBlue(color);
-        
-        int CornerX = x - (distance/2); int CornerZ = z - (distance/2);
-        
-        for (int Blockx = 0; Blockx < distance; Blockx++) {
-            for (int Blockz = 0; Blockz < distance; Blockz++) {
-                int BlockColor = modifyColourNoBiome(generator, color, colorBlend, CornerX+Blockx, CornerZ+Blockz, scale, darkness);
-                
-                A += getAlpha(BlockColor); R += getRed(BlockColor); G += getGreen(BlockColor); B += getBlue(BlockColor);
-            }
+    private static int oddEven(int num) {
+        if (num % 2 == 0) {
+            num = num + 1;
         }
         
-        int minColor = blend(color, colorBlend, (float) darkness);
-        int finalColor = clamp(toInt(new float[] {A/length, R/length, G/length, B/length}), minColor, color);
-        
-        if (finalColor == minColor) {finalColor = color;} //this code sucks ass the first time it worked well but i forgot to save it and now its this
-        
-        return finalColor;
+        return num;
+    }
+    
+    private static int blendedColor(int color, int colorBlend, int x, int z, int distance, Noise generator, float scale, float darkness) {
+        if (darkness != 0) {
+            int distanceFixed = oddEven(distance); // Make sure it's an odd number, should've done the yandare dev method
+            float scaleFixed = clamp(scale, 1f, 4096f); // Can't have people set it to 89896739675 and then wonder why it's sh*t
+            float strengthFixed = clamp(darkness, 0.05f, 0.995f); // Values of 1 sometimes caused problems so here's this
+            
+            if (distanceFixed > 1) {
+                int length = (int) ((pow(distanceFixed, 2)) + 1); // The +1 is necessary trust (It prevents strange blends)
+                
+                float A = getAlpha(color);
+                float R = getRed(color);
+                float G = getGreen(color);
+                float B = getBlue(color);
+                
+                int CornerX = x - distanceFixed / 2;
+                int CornerZ = z - distanceFixed / 2;
+
+                for(int Blockx = 0; Blockx < distanceFixed; Blockx++) {
+                    for(int Blockz = 0; Blockz < distanceFixed; Blockz++) {
+                        int BlockColor = modifyColourNoBiome(generator, color, colorBlend, CornerX + Blockx, CornerZ + Blockz, scaleFixed, strengthFixed);
+                        
+                        A += getAlpha(BlockColor);
+                        R += getRed(BlockColor);
+                        G += getGreen(BlockColor);
+                        B += getBlue(BlockColor);
+                    }
+                }
+                
+                int blendColor = toInt(new float[] {A / length, R / length, G / length, B / length});
+                
+                if(blendColor > color) { // Some bullsh*t these two
+                    blendColor = color;
+                }
+                if(blendColor < colorBlend) { // AI could never
+                    blendColor = colorBlend;
+                }
+                
+                return blendColor;
+            } else  {
+                return modifyColourNoBiome(generator, color, colorBlend, x, z, scaleFixed, strengthFixed);
+            }
+        } else {
+            return color;
+        }
     }
     
     private static int modifyColourNoBiome(Noise generator, int color, int colorBlend, double x, double z, double scale, double darkness) {
-        
         double value = generator.get(x / scale, z / scale);
         value = curve(0, 1, remap(value, -((1 << NOISE_OCTAVES) - 1), (1 << NOISE_OCTAVES) - 1, 0, 1)) * darkness;
         return blend(color,  colorBlend, (float) (value));
@@ -202,5 +233,10 @@ public class Rougher_Environment_Common {
     public static final ColorResolver SOUL_SANDS_RESOLVER = Util.make(() -> {
         return (biome, x, z) -> blendedColor(generalSettings.Default_Color, soulsandsSettings.Soul_Sands_Color, (int) x, (int) z,
                 soulsandsSettings.Soul_Sands_Blend, BLOCK_NOISE, soulsandsSettings.Soul_Sands_Scale, soulsandsSettings.Soul_Sands_Strength);
+    });
+    
+    public static final ColorResolver ICES_RESOLVER = Util.make(() -> {
+        return (biome, x, z) -> blendedColor(generalSettings.Default_Color, icesSettings.Ices_Color, (int) x, (int) z,
+                icesSettings.Ices_Blend, BLOCK_NOISE, icesSettings.Ices_Scale, icesSettings.Ices_Strength);
     });
 }

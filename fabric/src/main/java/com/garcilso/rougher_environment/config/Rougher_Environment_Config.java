@@ -37,7 +37,7 @@ public class Rougher_Environment_Config implements ConfigData {
         @ConfigEntry.Gui.Tooltip
         public float Sand_Scale = 96f;
         @ConfigEntry.Gui.Tooltip
-        public float Sand_Strength = 0.375f;
+        public float Sand_Strength = 0.275f;
         @ConfigEntry.Gui.Tooltip
         @ConfigEntry.BoundedDiscrete(min = 1, max = 29)
         public int Sand_Blend = 5;
@@ -139,6 +139,22 @@ public class Rougher_Environment_Config implements ConfigData {
         public int Soul_Sands_Blend = 5;
         @ConfigEntry.Gui.Excluded
         public int Soul_Sands_Color = 0x1B4646;
+        
+    }
+    
+    @ConfigEntry.Gui.CollapsibleObject
+    public IcesSettings icesSettings = new IcesSettings();
+    public static class IcesSettings {
+        
+        @ConfigEntry.Gui.Tooltip
+        public float Ices_Scale = 64f;
+        @ConfigEntry.Gui.Tooltip
+        public float Ices_Strength = 0.275f;
+        @ConfigEntry.Gui.Tooltip
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 29)
+        public int Ices_Blend = 3;
+        @ConfigEntry.Gui.Excluded
+        public int Ices_Color = 0xCCFEFF;
         
     }
 }

@@ -82,6 +82,16 @@
   "text.autoconfig.rougher_environment.option.soulsandsSettings.Soul_Sands_Strength.@Tooltip": "Handles the strength of the noise pattern",
 
   "text.autoconfig.rougher_environment.option.soulsandsSettings.Soul_Sands_Blend": "Soul Sand(s) Noise Blend",
-  "text.autoconfig.rougher_environment.option.soulsandsSettings.Soul_Sands_Blend.@Tooltip": "Handles the fake blend of the Noise (CAN BE LAGGY AT HIGH VALUES)"
+  "text.autoconfig.rougher_environment.option.soulsandsSettings.Soul_Sands_Blend.@Tooltip": "Handles the fake blend of the Noise (CAN BE LAGGY AT HIGH VALUES)",
+
+  "text.autoconfig.rougher_environment.option.icesSettings" : "Ice(s) Noise",
+  "text.autoconfig.rougher_environment.option.icesSettings.Ices_Scale" : "Ice(s) Noise Scale",
+  "text.autoconfig.rougher_environment.option.icesSettings.Ices_Scale.@Tooltip" : "Handles the size of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.icesSettings.Ices_Strength": "Ice(s) Noise Strength",
+  "text.autoconfig.rougher_environment.option.icesSettings.Ices_Strength.@Tooltip": "Handles the strength of the noise pattern",
+
+  "text.autoconfig.rougher_environment.option.icesSettings.Ices_Blend": "Ice(s) Noise Blend",
+  "text.autoconfig.rougher_environment.option.icesSettings.Ices_Blend.@Tooltip": "Handles the fake blend of the Noise (CAN BE LAGGY AT HIGH VALUES)"
 }
 
